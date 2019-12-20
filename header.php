@@ -41,7 +41,7 @@
 						<a class="branding branding_batilac" href="<?php echo home_url(); ?>"></a>
 					</div>
 					<div class="col-sm-8 nav_contact">
-						<p style="padding-right:10px">+41 22 839 30 40 | <a href="mailto:contact@promolac.ch" style="text-decoration:none;">contact@promolac.ch</a> | <a href="mailto:contact@batilac.ch" style="text-decoration:none;">contact@batilac.ch</a></p>
+						<p style="padding-right:10px">+41 22 839 30 40 | <a href="mailto:contact@batilac.ch" style="text-decoration:none;">contact@batilac.ch</a></p>
 						 <a href="#" id="show_mobile_nav" >Menu</a>
 						<nav class="nav" role="navigation"><?php chilly_nav('header_menu'); ?></nav>
 					</div>

@@ -7,8 +7,7 @@
 						<div style="float:left;">
 							<h3 style="text-transform:none">Sociétés</h3>
 							<p>
-								<strong>PromoLAC SA</br>
-								BatiLAC SA</br></strong><br>
+								<strong>BatiLAC SA</br></strong><br>
 								Route de Florissant 81</br>
 								1206 Genève</br>
 								Suisse
@@ -21,7 +20,7 @@
 							Tel. : +41 22 839 30 40</br>
 							Fax : +41 22 839 30 49</br>
 							<br>
-							Email : <a href="mailto:contact@promolac.ch">contact@promolac.ch</a><br>
+						
 							Email : <a href="mailto:contact@batilac.ch">contact@batilac.ch</a>
 						</p>
 					</div>
