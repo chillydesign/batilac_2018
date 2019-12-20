@@ -5,9 +5,8 @@
 					<div class="col-sm-4">
 						<div style="float:left; margin-right:20px; "><a class="branding" href="<?php echo home_url(); ?>"></a></div>
 						<div style="float:left;">
-							<h3 style="text-transform:none">Sociétés</h3>
+							<h3 style="text-transform:none">BatiLAC SA</h3>
 							<p>
-								<strong>BatiLAC SA</br></strong><br>
 								Route de Florissant 81</br>
 								1206 Genève</br>
 								Suisse
