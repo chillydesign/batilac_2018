@@ -15,13 +15,11 @@
 	Theme Support
 \*------------------------------------*/
 
-if (!isset($content_width))
-{
+if (!isset($content_width)) {
     $content_width = 900;
 }
 
-if (function_exists('add_theme_support'))
-{
+if (function_exists('add_theme_support')) {
     // Add Menu Support
     add_theme_support('menus');
 
@@ -65,34 +63,32 @@ if (function_exists('add_theme_support'))
 
 
 // HTML5 Blank navigation
-function chilly_nav($menu){
+function chilly_nav($menu) {
 
     wp_nav_menu(
-    array(
-        'theme_location'  => $menu,
-        'menu'            => '',
-        'container'       => 'div',
-        'container_class' => 'menu-{menu slug}-container',
-        'container_id'    => '',
-        'menu_class'      => 'menu',
-        'menu_id'         => '',
-        'echo'            => true,
-        'fallback_cb'     => 'wp_page_menu',
-        'before'          => '',
-        'after'           => '',
-        'link_before'     => '',
-        'link_after'      => '',
-        'items_wrap'      => '%3$s',
-        'depth'           => 0,
-        'walker'          => ''
+        array(
+            'theme_location'  => $menu,
+            'menu'            => '',
+            'container'       => 'div',
+            'container_class' => 'menu-{menu slug}-container',
+            'container_id'    => '',
+            'menu_class'      => 'menu',
+            'menu_id'         => '',
+            'echo'            => true,
+            'fallback_cb'     => 'wp_page_menu',
+            'before'          => '',
+            'after'           => '',
+            'link_before'     => '',
+            'link_after'      => '',
+            'items_wrap'      => '%3$s',
+            'depth'           => 0,
+            'walker'          => ''
         )
     );
-
 }
 
 // Load HTML5 Blank scripts (header.php)
-function html5blank_header_scripts()
-{
+function html5blank_header_scripts() {
     if ($GLOBALS['pagenow'] != 'wp-login.php' && !is_admin()) {
 
 
@@ -105,8 +101,7 @@ function html5blank_header_scripts()
 }
 
 // Load HTML5 Blank conditional scripts
-function html5blank_conditional_scripts()
-{
+function html5blank_conditional_scripts() {
     // if (is_page('pagenamehere')) {
     //     wp_register_script('scriptname', get_template_directory_uri() . '/js/scriptname.js', array('jquery'), '1.0.0'); // Conditional script(s)
     //     wp_enqueue_script('scriptname'); // Enqueue it!
@@ -114,20 +109,18 @@ function html5blank_conditional_scripts()
 }
 
 // Load HTML5 Blank styles
-function html5blank_styles()
-{
+function html5blank_styles() {
 
 
     wp_register_style('bxslider', get_template_directory_uri() . '/jquery.bxslider.css', array(), '1.1', 'all');
-       wp_enqueue_style('bxslider'); // Enqueue it!
+    wp_enqueue_style('bxslider'); // Enqueue it!
 
-    wp_register_style('style', get_template_directory_uri() . '/style.css', array(), '1.4.5', 'all');
+    wp_register_style('style', get_template_directory_uri() . '/style.css', array(), '1.4.6', 'all');
     wp_enqueue_style('style'); // Enqueue it!
 }
 
 // Register HTML5 Blank Navigation
-function register_html5_menu()
-{
+function register_html5_menu() {
     register_nav_menus(array( // Using array to specify more menus if needed
         'header_menu' => __('Header Menu', 'html5blank'), // Main Navigation
         'sidebar_menu' => __('Sidebar Menu', 'html5blank'), // Sidebar Navigation
@@ -136,27 +129,23 @@ function register_html5_menu()
 }
 
 // Remove the <div> surrounding the dynamic navigation to cleanup markup
-function my_wp_nav_menu_args($args = '')
-{
+function my_wp_nav_menu_args($args = '') {
     $args['container'] = false;
     return $args;
 }
 
 // Remove Injected classes, ID's and Page ID's from Navigation <li> items
-function my_css_attributes_filter($var)
-{
+function my_css_attributes_filter($var) {
     return is_array($var) ? array() : '';
 }
 
 // Remove invalid rel attribute values in the categorylist
-function remove_category_rel_from_category_list($thelist)
-{
+function remove_category_rel_from_category_list($thelist) {
     return str_replace('rel="category tag"', 'rel="tag"', $thelist);
 }
 
 // Add page slug to body class, love this - Credit: Starkers Wordpress Theme
-function add_slug_to_body_class($classes)
-{
+function add_slug_to_body_class($classes) {
     global $post;
     if (is_home()) {
         $key = array_search('blog', $classes);
@@ -173,8 +162,7 @@ function add_slug_to_body_class($classes)
 }
 
 // If Dynamic Sidebar Exists
-if (function_exists('register_sidebar'))
-{
+if (function_exists('register_sidebar')) {
     // Define Sidebar Widget Area 1
     register_sidebar(array(
         'name' => __('Widget Area 1', 'html5blank'),
@@ -199,8 +187,7 @@ if (function_exists('register_sidebar'))
 }
 
 // Remove wp_head() injected Recent Comment styles
-function my_remove_recent_comments_style()
-{
+function my_remove_recent_comments_style() {
     global $wp_widget_factory;
     remove_action('wp_head', array(
         $wp_widget_factory->widgets['WP_Widget_Recent_Comments'],
@@ -209,8 +196,7 @@ function my_remove_recent_comments_style()
 }
 
 // Pagination for paged posts, Page 1, Page 2, Page 3, with Next and Previous Links, No plugin
-function html5wp_pagination()
-{
+function html5wp_pagination() {
     global $wp_query;
     $big = 999999999;
     echo paginate_links(array(
@@ -228,14 +214,12 @@ function html5wp_index($length) // Create 20 Word Callback for Index page Excerp
 }
 
 // Create 40 Word Callback for Custom Post Excerpts, call using html5wp_excerpt('html5wp_custom_post');
-function html5wp_custom_post($length)
-{
+function html5wp_custom_post($length) {
     return 40;
 }
 
 // Create the Custom Excerpts callback
-function html5wp_excerpt($length_callback = '', $more_callback = '')
-{
+function html5wp_excerpt($length_callback = '', $more_callback = '') {
     global $post;
     if (function_exists($length_callback)) {
         add_filter('excerpt_length', $length_callback);
@@ -251,92 +235,85 @@ function html5wp_excerpt($length_callback = '', $more_callback = '')
 }
 
 // Custom View Article link to Post
-function html5_blank_view_article($more)
-{
+function html5_blank_view_article($more) {
     global $post;
     return '... <a class="view-article" href="' . get_permalink($post->ID) . '">' . __('View Article', 'html5blank') . '</a>';
 }
 
 // Remove Admin bar
-function remove_admin_bar()
-{
-   // return false;
+function remove_admin_bar() {
+    // return false;
 }
 
 // Remove 'text/css' from our enqueued stylesheet
-function html5_style_remove($tag)
-{
+function html5_style_remove($tag) {
     return preg_replace('~\s+type=["\'][^"\']++["\']~', '', $tag);
 }
 
 // Remove thumbnail width and height dimensions that prevent fluid images in the_thumbnail
-function remove_thumbnail_dimensions( $html )
-{
+function remove_thumbnail_dimensions($html) {
     $html = preg_replace('/(width|height)=\"\d*\"\s/', "", $html);
     return $html;
 }
 
 // Custom Gravatar in Settings > Discussion
-function html5blankgravatar ($avatar_defaults)
-{
+function html5blankgravatar($avatar_defaults) {
     $myavatar = get_template_directory_uri() . '/images/gravatar.jpg';
     $avatar_defaults[$myavatar] = "Custom Gravatar";
     return $avatar_defaults;
 }
 
 // Threaded Comments
-function enable_threaded_comments()
-{
+function enable_threaded_comments() {
     if (!is_admin()) {
-        if (is_singular() AND comments_open() AND (get_option('thread_comments') == 1)) {
+        if (is_singular() and comments_open() and (get_option('thread_comments') == 1)) {
             wp_enqueue_script('comment-reply');
         }
     }
 }
 
 // Custom Comments Callback
-function html5blankcomments($comment, $args, $depth)
-{
-	$GLOBALS['comment'] = $comment;
-	extract($args, EXTR_SKIP);
+function html5blankcomments($comment, $args, $depth) {
+    $GLOBALS['comment'] = $comment;
+    extract($args, EXTR_SKIP);
 
-	if ( 'div' == $args['style'] ) {
-		$tag = 'div';
-		$add_below = 'comment';
-	} else {
-		$tag = 'li';
-		$add_below = 'div-comment';
-	}
+    if ('div' == $args['style']) {
+        $tag = 'div';
+        $add_below = 'comment';
+    } else {
+        $tag = 'li';
+        $add_below = 'div-comment';
+    }
 ?>
     <!-- heads up: starting < for the html tag (li or div) in the next line: -->
-    <<?php echo $tag ?> <?php comment_class(empty( $args['has_children'] ) ? '' : 'parent') ?> id="comment-<?php comment_ID() ?>">
-	<?php if ( 'div' != $args['style'] ) : ?>
-	<div id="div-comment-<?php comment_ID() ?>" class="comment-body">
-	<?php endif; ?>
-	<div class="comment-author vcard">
-	<?php if ($args['avatar_size'] != 0) echo get_avatar( $comment, $args['180'] ); ?>
-	<?php printf(__('<cite class="fn">%s</cite> <span class="says">says:</span>'), get_comment_author_link()) ?>
-	</div>
-<?php if ($comment->comment_approved == '0') : ?>
-	<em class="comment-awaiting-moderation"><?php _e('Your comment is awaiting moderation.') ?></em>
-	<br />
-<?php endif; ?>
+    <<?php echo $tag ?> <?php comment_class(empty($args['has_children']) ? '' : 'parent') ?> id="comment-<?php comment_ID() ?>">
+        <?php if ('div' != $args['style']) : ?>
+            <div id="div-comment-<?php comment_ID() ?>" class="comment-body">
+            <?php endif; ?>
+            <div class="comment-author vcard">
+                <?php if ($args['avatar_size'] != 0) echo get_avatar($comment, $args['180']); ?>
+                <?php printf(__('<cite class="fn">%s</cite> <span class="says">says:</span>'), get_comment_author_link()) ?>
+            </div>
+            <?php if ($comment->comment_approved == '0') : ?>
+                <em class="comment-awaiting-moderation"><?php _e('Your comment is awaiting moderation.') ?></em>
+                <br />
+            <?php endif; ?>
 
-	<div class="comment-meta commentmetadata"><a href="<?php echo htmlspecialchars( get_comment_link( $comment->comment_ID ) ) ?>">
-		<?php
-			printf( __('%1$s at %2$s'), get_comment_date(),  get_comment_time()) ?></a><?php edit_comment_link(__('(Edit)'),'  ','' );
-		?>
-	</div>
+            <div class="comment-meta commentmetadata"><a href="<?php echo htmlspecialchars(get_comment_link($comment->comment_ID)) ?>">
+                    <?php
+                    printf(__('%1$s at %2$s'), get_comment_date(),  get_comment_time()) ?></a><?php edit_comment_link(__('(Edit)'), '  ', '');
+                                                                                                ?>
+            </div>
 
-	<?php comment_text() ?>
+            <?php comment_text() ?>
 
-	<div class="reply">
-	<?php comment_reply_link(array_merge( $args, array('add_below' => $add_below, 'depth' => $depth, 'max_depth' => $args['max_depth']))) ?>
-	</div>
-	<?php if ( 'div' != $args['style'] ) : ?>
-	</div>
-	<?php endif; ?>
-<?php }
+            <div class="reply">
+                <?php comment_reply_link(array_merge($args, array('add_below' => $add_below, 'depth' => $depth, 'max_depth' => $args['max_depth']))) ?>
+            </div>
+            <?php if ('div' != $args['style']) : ?>
+            </div>
+        <?php endif; ?>
+    <?php }
 
 /*------------------------------------*\
 	Actions + Filters + ShortCodes
@@ -401,37 +378,36 @@ remove_filter('the_excerpt', 'wpautop'); // Remove <p> tags from Excerpt altoget
 
 function disable_wp_emojicons() {
 
-  // all actions related to emojis
-  remove_action( 'admin_print_styles', 'print_emoji_styles' );
-  remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-  remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-  remove_action( 'wp_print_styles', 'print_emoji_styles' );
-  remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
-  remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
-  remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
-
+    // all actions related to emojis
+    remove_action('admin_print_styles', 'print_emoji_styles');
+    remove_action('wp_head', 'print_emoji_detection_script', 7);
+    remove_action('admin_print_scripts', 'print_emoji_detection_script');
+    remove_action('wp_print_styles', 'print_emoji_styles');
+    remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
+    remove_filter('the_content_feed', 'wp_staticize_emoji');
+    remove_filter('comment_text_rss', 'wp_staticize_emoji');
 }
-add_action( 'init', 'disable_wp_emojicons' );
-function remove_json_api () {
+add_action('init', 'disable_wp_emojicons');
+function remove_json_api() {
 
     // Remove the REST API lines from the HTML Header
-    remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
-    remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
+    remove_action('wp_head', 'rest_output_link_wp_head', 10);
+    remove_action('wp_head', 'wp_oembed_add_discovery_links', 10);
     // Remove the REST API endpoint.
-    remove_action( 'rest_api_init', 'wp_oembed_register_route' );
+    remove_action('rest_api_init', 'wp_oembed_register_route');
     // Turn off oEmbed auto discovery.
-    add_filter( 'embed_oembed_discover', '__return_false' );
+    add_filter('embed_oembed_discover', '__return_false');
     // Don't filter oEmbed results.
-    remove_filter( 'oembed_dataparse', 'wp_filter_oembed_result', 10 );
+    remove_filter('oembed_dataparse', 'wp_filter_oembed_result', 10);
     // Remove oEmbed discovery links.
-    remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
+    remove_action('wp_head', 'wp_oembed_add_discovery_links');
     // Remove oEmbed-specific JavaScript from the front-end and back-end.
-    remove_action( 'wp_head', 'wp_oembed_add_host_js' );
-   // Remove all embeds rewrite rules.
-  // add_filter( 'rewrite_rules_array', 'disable_embeds_rewrites' );
+    remove_action('wp_head', 'wp_oembed_add_host_js');
+    // Remove all embeds rewrite rules.
+    // add_filter( 'rewrite_rules_array', 'disable_embeds_rewrites' );
 
 }
-add_action( 'after_setup_theme', 'remove_json_api' );
+add_action('after_setup_theme', 'remove_json_api');
 
 
 
@@ -442,139 +418,143 @@ add_action( 'after_setup_theme', 'remove_json_api' );
 \*------------------------------------*/
 
 // Create 1 Custom Post type for a Demo, called HTML5-Blank
-function create_post_type_vente()
-{
+function create_post_type_vente() {
 
-    register_post_type('vente', // Register Custom Post Type
+    register_post_type(
+        'vente', // Register Custom Post Type
         array(
-        'labels' => array(
-            'name' => __('Vente', 'promolac'), // Rename these to suit
-            'singular_name' => __('Vente', 'promolac'),
-            'add_new' => __('Ajouter', 'promolac'),
-            'add_new_item' => __('Ajouter Vente', 'promolac'),
-            'edit' => __('Modifier', 'promolac'),
-            'edit_item' => __('Modifier Vente', 'promolac'),
-            'new_item' => __('Nouvelle Vente', 'promolac'),
-            'view' => __('Afficher Vente', 'promolac'),
-            'view_item' => __('Afficher Vente', 'promolac'),
-            'search_items' => __('Chercher Vente', 'promolac'),
-            'not_found' => __('Aucune Vente trouvée', 'promolac'),
-            'not_found_in_trash' => __('Aucune Vente trouvée', 'promolac')
-        ),
-        'public' => true,
-        'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
-        'has_archive' => true,
-        'supports' => array(
-            'title',
-            'editor',
-            'excerpt',
-            'thumbnail'
-        ), // Go to Dashboard Custom HTML5 Blank post for supports
-        'can_export' => true // Allows export in Tools > Export
+            'labels' => array(
+                'name' => __('Vente', 'promolac'), // Rename these to suit
+                'singular_name' => __('Vente', 'promolac'),
+                'add_new' => __('Ajouter', 'promolac'),
+                'add_new_item' => __('Ajouter Vente', 'promolac'),
+                'edit' => __('Modifier', 'promolac'),
+                'edit_item' => __('Modifier Vente', 'promolac'),
+                'new_item' => __('Nouvelle Vente', 'promolac'),
+                'view' => __('Afficher Vente', 'promolac'),
+                'view_item' => __('Afficher Vente', 'promolac'),
+                'search_items' => __('Chercher Vente', 'promolac'),
+                'not_found' => __('Aucune Vente trouvée', 'promolac'),
+                'not_found_in_trash' => __('Aucune Vente trouvée', 'promolac')
+            ),
+            'public' => true,
+            'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
+            'has_archive' => true,
+            'supports' => array(
+                'title',
+                'editor',
+                'excerpt',
+                'thumbnail'
+            ), // Go to Dashboard Custom HTML5 Blank post for supports
+            'can_export' => true // Allows export in Tools > Export
 
-    ));
+        )
+    );
 }
 
 
-function create_post_type_promotion()
-{
+function create_post_type_promotion() {
 
-    register_post_type('promotion', // Register Custom Post Type
+    register_post_type(
+        'promotion', // Register Custom Post Type
         array(
-        'labels' => array(
-            'name' => __('Promotion', 'promolac'), // Rename these to suit
-            'singular_name' => __('Promotion', 'promolac'),
-            'add_new' => __('Ajouter', 'promolac'),
-            'add_new_item' => __('Ajouter Promotion', 'promolac'),
-            'edit' => __('Modifier', 'promolac'),
-            'edit_item' => __('Modifier Promotion', 'promolac'),
-            'new_item' => __('Nouvelle Promotion', 'promolac'),
-            'view' => __('Afficher Promotion', 'promolac'),
-            'view_item' => __('Afficher Promotion', 'promolac'),
-            'search_items' => __('Chercher Promotion', 'promolac'),
-            'not_found' => __('Aucune Promotion trouvée', 'promolac'),
-            'not_found_in_trash' => __('Aucune Promotion trouvée', 'promolac')
-        ),
-        'public' => true,
-        'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
-        'has_archive' => true,
-        'supports' => array(
-            'title',
-            'editor',
-            'excerpt',
-            'thumbnail'
-        ), // Go to Dashboard Custom HTML5 Blank post for supports
-        'can_export' => true // Allows export in Tools > Export
+            'labels' => array(
+                'name' => __('Promotion', 'promolac'), // Rename these to suit
+                'singular_name' => __('Promotion', 'promolac'),
+                'add_new' => __('Ajouter', 'promolac'),
+                'add_new_item' => __('Ajouter Promotion', 'promolac'),
+                'edit' => __('Modifier', 'promolac'),
+                'edit_item' => __('Modifier Promotion', 'promolac'),
+                'new_item' => __('Nouvelle Promotion', 'promolac'),
+                'view' => __('Afficher Promotion', 'promolac'),
+                'view_item' => __('Afficher Promotion', 'promolac'),
+                'search_items' => __('Chercher Promotion', 'promolac'),
+                'not_found' => __('Aucune Promotion trouvée', 'promolac'),
+                'not_found_in_trash' => __('Aucune Promotion trouvée', 'promolac')
+            ),
+            'public' => true,
+            'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
+            'has_archive' => true,
+            'supports' => array(
+                'title',
+                'editor',
+                'excerpt',
+                'thumbnail'
+            ), // Go to Dashboard Custom HTML5 Blank post for supports
+            'can_export' => true // Allows export in Tools > Export
 
-    ));
+        )
+    );
 }
 
 
-function create_post_type_realisation()
-{
+function create_post_type_realisation() {
 
-    register_post_type('realisation', // Register Custom Post Type
+    register_post_type(
+        'realisation', // Register Custom Post Type
         array(
-        'labels' => array(
-            'name' => __('Réalisation', 'promolac'), // Rename these to suit
-            'singular_name' => __('Réalisation', 'promolac'),
-            'add_new' => __('Ajouter', 'promolac'),
-            'add_new_item' => __('Ajouter Réalisation', 'promolac'),
-            'edit' => __('Modifier', 'promolac'),
-            'edit_item' => __('Modifier Réalisation', 'promolac'),
-            'new_item' => __('Nouvelle Réalisation', 'promolac'),
-            'view' => __('Afficher Réalisation', 'promolac'),
-            'view_item' => __('Afficher Réalisation', 'promolac'),
-            'search_items' => __('Chercher Réalisation', 'promolac'),
-            'not_found' => __('Aucune Réalisation trouvée', 'promolac'),
-            'not_found_in_trash' => __('Aucune Réalisation trouvée dansla Corbeille', 'promolac')
-        ),
-        'public' => true,
-        'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
-        'has_archive' => true,
-        'supports' => array(
-            'title',
-            'editor',
-            'excerpt',
-            'thumbnail'
-        ), // Go to Dashboard Custom HTML5 Blank post for supports
-        'can_export' => true // Allows export in Tools > Export
+            'labels' => array(
+                'name' => __('Réalisation', 'promolac'), // Rename these to suit
+                'singular_name' => __('Réalisation', 'promolac'),
+                'add_new' => __('Ajouter', 'promolac'),
+                'add_new_item' => __('Ajouter Réalisation', 'promolac'),
+                'edit' => __('Modifier', 'promolac'),
+                'edit_item' => __('Modifier Réalisation', 'promolac'),
+                'new_item' => __('Nouvelle Réalisation', 'promolac'),
+                'view' => __('Afficher Réalisation', 'promolac'),
+                'view_item' => __('Afficher Réalisation', 'promolac'),
+                'search_items' => __('Chercher Réalisation', 'promolac'),
+                'not_found' => __('Aucune Réalisation trouvée', 'promolac'),
+                'not_found_in_trash' => __('Aucune Réalisation trouvée dansla Corbeille', 'promolac')
+            ),
+            'public' => true,
+            'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
+            'has_archive' => true,
+            'supports' => array(
+                'title',
+                'editor',
+                'excerpt',
+                'thumbnail'
+            ), // Go to Dashboard Custom HTML5 Blank post for supports
+            'can_export' => true // Allows export in Tools > Export
 
-    ));
+        )
+    );
 }
 
 
-function create_post_type_slide()
-{
+function create_post_type_slide() {
 
-    register_post_type('slide', // Register Custom Post Type
+    register_post_type(
+        'slide', // Register Custom Post Type
         array(
-        'labels' => array(
-            'name' => __('Slide', 'promolac'), // Rename these to suit
-            'singular_name' => __('Slide', 'promolac'),
-            'add_new' => __('Ajouter', 'promolac'),
-            'add_new_item' => __('Ajouter Slide', 'promolac'),
-            'edit' => __('Modifier', 'promolac'),
-            'edit_item' => __('Modifier Slide', 'promolac'),
-            'new_item' => __('Nouvelle Slide', 'promolac'),
-            'view' => __('Afficher Slide', 'promolac'),
-            'view_item' => __('Afficher Slide', 'promolac'),
-            'search_items' => __('Chercher Slide', 'promolac'),
-            'not_found' => __('Aucune Slide trouvée', 'promolac'),
-            'not_found_in_trash' => __('Aucune Slide trouvée dansla Corbeille', 'promolac')
-        ),
-        'public' => true,
-        'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
-        'has_archive' => true,
-        'supports' => array(
-            'title',
-            'editor',
-            'excerpt',
-            'thumbnail'
-        ), // Go to Dashboard Custom HTML5 Blank post for supports
-        'can_export' => true // Allows export in Tools > Export
+            'labels' => array(
+                'name' => __('Slide', 'promolac'), // Rename these to suit
+                'singular_name' => __('Slide', 'promolac'),
+                'add_new' => __('Ajouter', 'promolac'),
+                'add_new_item' => __('Ajouter Slide', 'promolac'),
+                'edit' => __('Modifier', 'promolac'),
+                'edit_item' => __('Modifier Slide', 'promolac'),
+                'new_item' => __('Nouvelle Slide', 'promolac'),
+                'view' => __('Afficher Slide', 'promolac'),
+                'view_item' => __('Afficher Slide', 'promolac'),
+                'search_items' => __('Chercher Slide', 'promolac'),
+                'not_found' => __('Aucune Slide trouvée', 'promolac'),
+                'not_found_in_trash' => __('Aucune Slide trouvée dansla Corbeille', 'promolac')
+            ),
+            'public' => true,
+            'hierarchical' => true, // Allows your posts to behave like Hierarchy Pages
+            'has_archive' => true,
+            'supports' => array(
+                'title',
+                'editor',
+                'excerpt',
+                'thumbnail'
+            ), // Go to Dashboard Custom HTML5 Blank post for supports
+            'can_export' => true // Allows export in Tools > Export
 
-    ));
+        )
+    );
 }
 
 
@@ -585,31 +565,28 @@ function create_post_type_slide()
 \*------------------------------------*/
 
 
-function chilly_map( $atts, $content = null ) {
+function chilly_map($atts, $content = null) {
 
-    $attributes = shortcode_atts( array(
+    $attributes = shortcode_atts(array(
         'location' => "Chemin de Pra 1993, Veysonnaz, Suisse"
-    ), $atts );
+    ), $atts);
 
 
-        wp_register_script('googlemaps', '//maps.google.com/maps/api/js?key=AIzaSyAxQfqRqtPLAW4BolFMCxTiv9y--R8CXdU', array(), '0.0.1', true);
-        wp_enqueue_script('googlemaps'); // Enqueue it!
-        wp_register_script('map_script', get_template_directory_uri() . '/js/scripts_map.js', array(), '0.0.1', true);
-        wp_enqueue_script('map_script'); // Enqueue it!
+    wp_register_script('googlemaps', '//maps.google.com/maps/api/js?key=AIzaSyAxQfqRqtPLAW4BolFMCxTiv9y--R8CXdU', array(), '0.0.1', true);
+    wp_enqueue_script('googlemaps'); // Enqueue it!
+    wp_register_script('map_script', get_template_directory_uri() . '/js/scripts_map.js', array(), '0.0.1', true);
+    wp_enqueue_script('map_script'); // Enqueue it!
 
     $address = $attributes['location'];
     $chilly_map = '<div id="mapcontainer"></div>';
     $chilly_map .= "<script> var address = '"  . $address  .   "';</script>";
     return $chilly_map;
-
-
-
 }
-add_shortcode( 'chilly_map', 'chilly_map' );
+add_shortcode('chilly_map', 'chilly_map');
 
 
 
-function count_to_bootstrap_class($count){
+function count_to_bootstrap_class($count) {
 
     if ($count == 1) {
         $class = 'col-sm-12';
@@ -619,7 +596,7 @@ function count_to_bootstrap_class($count){
         $class = 'col-sm-4';
     } elseif ($count == 4) {
         $class = 'col-sm-3 col-xs-6';
-    } elseif ($count <= 6 ) {
+    } elseif ($count <= 6) {
         $class = 'col-sm-2';
     } else {
         $class = 'col-sm-1';
@@ -628,56 +605,58 @@ function count_to_bootstrap_class($count){
 };
 
 
-function thumbnail_of_post_url( $post_id,  $size='large'  ) {
+function thumbnail_of_post_url($post_id,  $size = 'large') {
 
-     $image_id = get_post_thumbnail_id(  $post_id );
-     $image_url = wp_get_attachment_image_src($image_id, $size  );
-     $image = $image_url[0];
-     return $image;
-
+    $image_id = get_post_thumbnail_id($post_id);
+    $image_url = wp_get_attachment_image_src($image_id, $size);
+    if ($image_url) {
+        $image = $image_url[0];
+        return $image;
+    }
+    return '';
 }
 
 
-function custom_excerpt_length( $length ) {
+function custom_excerpt_length($length) {
     return 20;
 }
-add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+add_filter('excerpt_length', 'custom_excerpt_length', 999);
 
 function new_excerpt_more($more) {
-   global $post;
-   return '...';
+    global $post;
+    return '...';
 }
 add_filter('excerpt_more', 'new_excerpt_more');
 
 
 // CHANGE PROMOTION BELOW TO WHATEVER CUSTOM POST TYPE YOU WANT
-function stf_redirect_to_post(){
+function stf_redirect_to_post() {
     global $wp_query;
 
     // If there is one post on archive page
-    if(   is_post_type_archive('vente')    && $wp_query->post_count == 1 ){
+    if (is_post_type_archive('vente')    && $wp_query->post_count == 1) {
         // Setup post data
         the_post();
         // Get permalink
         $post_url = get_permalink();
         // Redirect to post page
-        wp_redirect( $post_url );
+        wp_redirect($post_url);
     }
 
-    if(   is_post_type_archive('promotion')    && $wp_query->post_count == 1 ){
-    // Setup post data
-    the_post();
-    // Get permalink
-    $post_url = get_field('url_site_dedie');
-    // Redirect to post page
-    wp_redirect( $post_url );
+    if (is_post_type_archive('promotion')    && $wp_query->post_count == 1) {
+        // Setup post data
+        the_post();
+        // Get permalink
+        $post_url = get_field('url_site_dedie');
+        // Redirect to post page
+        wp_redirect($post_url);
     }
-
-} add_action('template_redirect', 'stf_redirect_to_post');
-
-
+}
+add_action('template_redirect', 'stf_redirect_to_post');
 
 
 
 
-?>
+
+
+    ?>

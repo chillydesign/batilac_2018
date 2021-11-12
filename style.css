@@ -529,6 +529,9 @@ section.concrete {
     padding: 50px 0 0;
 }
 
+.remove_top_padding_section {
+    margin-top: -50px;
+}
 
 
 
@@ -642,7 +645,7 @@ a.icon_column {
 }
 
 .icon_column img {
-    width: 50%;
+    width: 42%;
     margin: 10px auto 15px;
     height: auto;
     max-width: 180px;
@@ -1645,7 +1648,7 @@ img.ajax-loader {
     }
 
     .col-sm-2 {
-        width: 16.66666667%
+        width: 20%
     }
 
     .col-sm-1 {
