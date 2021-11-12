@@ -40,16 +40,26 @@
 	<div class="row">
 	<?php $r = 0; ?>
 		<?php  if ($realisation_loop->have_posts() ) :  while($realisation_loop->have_posts()) : $realisation_loop->the_post();  ?>
+		<?php $url_site_dedie = get_field('url_site_dedie'); ?>
 		<div class="col-sm-4">
 		<div class="single_realisation">
 			<?php if ( has_post_thumbnail()) : // Check if thumbnail exists ?>
 				<?php $image = thumbnail_of_post_url( get_the_id() ); ?>
-				<a class="post_thumbnail_link" style="background-image:url(<?php echo $image;  ?>)" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-
-				</a>
+				<?php if(!empty($url_site_dedie)){ ?>
+					<a class="post_thumbnail_link" style="background-image:url(<?php echo $image;  ?>)"  target="_blank" href="<?php echo $url_site_dedie; ?>" title="<?php the_title(); ?>">
+				<?php } else { ?>
+					<a class="post_thumbnail_link" style="background-image:url(<?php echo $image;  ?>)" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"></a>
+				<?php } ?>
+				
 			<?php endif; ?>
 
-			<h4><a href=" <?php echo  get_the_permalink(); ?>"><?php the_title(); ?></a></h4>
+			<h4>
+				<?php if(!empty($url_site_dedie)){ ?>
+					<a target="_blank" href="<?php echo $url_site_dedie; ?>" title="<?php the_title(); ?>">
+				<?php } else { ?>
+					<a href=" <?php echo  get_the_permalink(); ?>">
+				<?php } ?>
+				<?php the_title(); ?></a></h4>
 			<p ><?php echo get_the_excerpt(); ?></p>
 	
 		</div>
